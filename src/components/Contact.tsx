@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import styled from "styled-components";
+import Map from "./Map";
 
 
 const Section = styled.div`
@@ -72,54 +73,54 @@ const Right = styled.div`
 `;
 
 const Contact = () => {
-    const ref: any = useRef();
-    const [success, setSuccess] = useState(true);
+  const ref: any = useRef();
+  const [success, setSuccess] = useState(true);
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
 
-        emailjs
-            .sendForm(
-                "service_id",
-                "template_id",
-                ref.current,
-                "public_key"
-            )
-            .then(
-                (result) => {
-                    console.log(result.text);
-                    setSuccess(true);
-                },
-                (error) => {
-                    console.log(error.text);
-                    setSuccess(false);
-                }
-            );
-    };
-    return (
-        <Section>
-            <Container>
-                <Left>
-                    <Form ref={ref} onSubmit={handleSubmit}>
-                        <Title>Contact Us</Title>
-                        <Input placeholder="Name" name="name" />
-                        <Input placeholder="Email" name="email" />
-                        <TextArea
-                            placeholder="Write your message"
-                            name="message"
-                            rows={10}
-                        />
-                        <Button type="submit">Send</Button>
-                        {success &&
-                            "Your message has been sent. We'll get back to you soon :)"}
-                    </Form>
-                </Left>
-                <Right>
-                            
-                </Right>
-            </Container>
-        </Section>
-    );
+    emailjs
+      .sendForm(
+        "service_id",
+        "template_id",
+        ref.current,
+        "public_key"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          setSuccess(true);
+        },
+        (error) => {
+          console.log(error.text);
+          setSuccess(false);
+        }
+      );
+  };
+  return (
+    <Section>
+      <Container>
+        <Left>
+          <Form ref={ref} onSubmit={handleSubmit}>
+            <Title>Contact Us</Title>
+            <Input placeholder="Name" name="name" />
+            <Input placeholder="Email" name="email" />
+            <TextArea
+              placeholder="Write your message"
+              name="message"
+              rows={10}
+            />
+            <Button type="submit">Send</Button>
+            {success &&
+              "Your message has been sent. We'll get back to you soon :)"}
+          </Form>
+        </Left>
+        <Right>
+          <Map />
+        </Right>
+      </Container>
+    </Section>
+  );
 };
 
 export default Contact;
